@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class ScheduleArriveActivity extends Activity {
+public class ScheduleDeparturesActivity extends Activity {
 
 	public static Intent buildIntent(Context context) {
-		Intent intent = new Intent(context, ScheduleArriveActivity.class);
+		Intent intent = new Intent(context, ScheduleDeparturesActivity.class);
 		return intent;
 	}
 
@@ -20,11 +20,11 @@ public class ScheduleArriveActivity extends Activity {
 	}
 
 	public void onDeparturesClick(View v) {
-		startActivity(ScheduleDeparturesActivity.buildIntent(this));
-		finish();
+
 	}
 
 	public void onArriveClick(View v) {
-		// TODO GO TO Departures
+		startActivity(ScheduleArriveActivity.buildIntent(this));
+		finish();
 	}
 }

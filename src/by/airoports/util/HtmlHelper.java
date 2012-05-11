@@ -53,10 +53,6 @@ public class HtmlHelper {
 			list.add(tdList);
 		}
 
-		// for (int i = 0; i < list.size(); i++) {
-		// System.out.println("LIST" + list.get(i));
-		// }
-
 		return "";
 	}
 }
