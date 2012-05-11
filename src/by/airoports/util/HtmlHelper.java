@@ -11,12 +11,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+/**
+ * Connect to web page via url
+ */
 public class HtmlHelper {
 	Document doc;
 
-	/**
-	 * Connect to web page
-	 */
 	public HtmlHelper(String url) throws IOException {
 		Connection connection = Jsoup.connect(url);
 		connection.timeout(60 * 1000);

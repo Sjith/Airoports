@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme is the default theme. -->
+    <style name="Theme" parent="android:Theme"></style>
+
+    <!-- Variation on the Light theme that turns off the title -->
+    <style name="Theme.LightingSurvey" parent="android:style/Theme.Light">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:buttonStyle">@style/Button</item>
+    </style>
+
+
+    <style name="Button">
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+    </style>
+
+    <style name="tab_background">
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
+    <style name="button_background_survey_list">
+        <item name="android:background">#01894B</item>
+        <item name="android:height">40dip</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+</resources>
