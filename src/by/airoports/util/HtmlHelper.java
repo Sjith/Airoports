@@ -30,7 +30,7 @@ public class HtmlHelper {
 	/**
 	 * Grab data
 	 */
-	public String getArriveSchedule() {
+	public List<List<String>> getArriveSchedule() {
 		Element body = doc.select("tbody").first();
 		List<List<String>> list = new ArrayList<List<String>>();
 
@@ -53,6 +53,6 @@ public class HtmlHelper {
 			list.add(tdList);
 		}
 
-		return "";
+		return list;
 	}
 }

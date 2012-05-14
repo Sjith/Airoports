@@ -44,14 +44,12 @@ public final class R {
         public static final int hello=0x7f050000;
     }
     public static final class style {
-        public static final int Button=0x7f060002;
+        public static final int Button=0x7f060001;
         /**  Base application theme is the default theme. 
+ Variation on the Light theme that turns off the title 
          */
-        public static final int Theme=0x7f060000;
-        /**  Variation on the Light theme that turns off the title 
-         */
-        public static final int Theme_LightingSurvey=0x7f060001;
-        public static final int button_background_survey_list=0x7f060004;
-        public static final int tab_background=0x7f060003;
+        public static final int Theme_Airoports=0x7f060000;
+        public static final int button_background_survey_list=0x7f060003;
+        public static final int tab_background=0x7f060002;
     }
 }
