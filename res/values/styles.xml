@@ -2,15 +2,15 @@
 <resources>
 
     <!-- Base application theme is the default theme. -->
-    <style name="Theme" parent="android:Theme"></style>
+
 
     <!-- Variation on the Light theme that turns off the title -->
-    <style name="Theme.LightingSurvey" parent="android:style/Theme.Light">
+    <style name="Theme.Airoports" parent="android:style/Theme.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:buttonStyle">@style/Button</item>
+        <item name="android:colorForeground">#000000</item>
     </style>
-
 
     <style name="Button">
         <item name="android:focusable">true</item>
