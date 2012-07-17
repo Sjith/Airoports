@@ -8,10 +8,12 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import by.airoports.util.HtmlHelper;
 import by.airoports.util.ProgressAsyncTask;
@@ -32,6 +34,7 @@ public class ScheduleArriveActivity extends ListActivity {
 
 		ArrayList<List<String>> arrayList = new ArrayList<List<String>>();
 		arrayList.add(new ArrayList<String>());
+		arrayList.add(new ArrayList<String>());
 		ArriveAdapter adapter = new ArriveAdapter(arrayList);
 		setListAdapter(adapter);
 		// ArriveScheduleLoader scheduleLoader = new ArriveScheduleLoader(this, new ProgressDialogInfo("LOADER",
@@ -47,6 +50,7 @@ public class ScheduleArriveActivity extends ListActivity {
 	public void onArriveClick(View v) {
 		// TODO GO TO Departures
 	}
+
 
 	private class ArriveAdapter extends BaseAdapter {
 
@@ -91,11 +95,9 @@ public class ScheduleArriveActivity extends ListActivity {
 
 	}
 
-	public static class ViewHolder {
-		public TextView time;
+	public static class ViewHolder {		
 		public TextView timeInFact;
 		public TextView flight;
-		public TextView from;
 		public TextView arrive;
 		public TextView sector;
 

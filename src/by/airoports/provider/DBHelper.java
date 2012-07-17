@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 import by.airoports.app.Constants;
+import by.airoports.contract.AiroportContract;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -19,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// execSQL(db, SafeItemContract.getSql(oldVersion, newVersion));
+		 execSQL(db, AiroportContract.DATABASE_CREATE);
 	}
 
 	private void execSQL(final SQLiteDatabase db, final String sql) {

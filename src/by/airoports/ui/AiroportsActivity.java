@@ -1,9 +1,14 @@
 package by.airoports.ui;
 
+import by.airoports.contract.AiroportContract;
 import android.app.ListActivity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -19,6 +24,12 @@ public class AiroportsActivity extends ListActivity {
 		setListAdapter(adapter);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main_menu, menu);
+	    return true;
+	}
 	private class AiroportsAdapter extends BaseAdapter {
 
 		private final String[] airoportsData = { "Belavia", "Minsk1" };
@@ -47,9 +58,11 @@ public class AiroportsActivity extends ListActivity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.list_item_airoports, null);
+				convertView = inflater.inflate(R.layout.list_item_airoports,
+						null);
 				holder = new ViewHolder();
-				holder.textView = (TextView) convertView.findViewById(R.id.airoportName);
+				holder.textView = (TextView) convertView
+						.findViewById(R.id.airoportName);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
