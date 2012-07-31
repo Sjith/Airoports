@@ -3,6 +3,7 @@ package by.airoports.provider;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import by.airoports.app.Constants;
 import by.airoports.contract.AiroportContract;
 
 import android.content.ContentProvider;
@@ -22,12 +23,8 @@ public class DBProvider extends ContentProvider {
 	// Used for the UriMacher
 	private static final int AIROPORTS = 10;
 	private static final int AIROPORTS_ID = 20;
-
-	private static final String AUTHORITY = "by.airoports.ui";
-
-	private static final String BASE_PATH = "airoports";
-	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
-			+ "/" + BASE_PATH);
+	public static final Uri CONTENT_URI = Uri.parse("content://" + Constants.AUTHORITY
+			+ "/" + Constants.BASE_PATH);
 
 	public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
 			+ "/airoports";
@@ -37,8 +34,8 @@ public class DBProvider extends ContentProvider {
 	private static final UriMatcher sURIMatcher = new UriMatcher(
 			UriMatcher.NO_MATCH);
 	static {
-		sURIMatcher.addURI(AUTHORITY, BASE_PATH, AIROPORTS);
-		sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", AIROPORTS_ID);
+		sURIMatcher.addURI(Constants.AUTHORITY, Constants.BASE_PATH, AIROPORTS);
+		sURIMatcher.addURI(Constants.AUTHORITY, Constants.BASE_PATH + "/#", AIROPORTS_ID);
 	}
 
 	@Override
@@ -101,7 +98,7 @@ public class DBProvider extends ContentProvider {
 			throw new IllegalArgumentException("Unknown URI: " + uri);
 		}
 		getContext().getContentResolver().notifyChange(uri, null);
-		return Uri.parse(BASE_PATH + "/" + id);
+		return Uri.parse(Constants.BASE_PATH + "/" + id);
 	}
 
 	@Override

@@ -4,10 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActivityManager;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +19,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import by.airoports.R;
+import by.airoports.item.Arrive;
+import by.airoports.item.ArriveDetails;
 import by.airoports.util.HtmlHelper;
 import by.airoports.util.ProgressAsyncTask;
+import by.airoports.util.ProgressAsyncTask.ProgressDialogInfo;
 
 public class ScheduleArriveActivity extends ListActivity {
 
@@ -29,17 +38,23 @@ public class ScheduleArriveActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule_arrive);
-
 		findViewById(R.id.tab_arrive).setPressed(true);
 
-		ArrayList<List<String>> arrayList = new ArrayList<List<String>>();
-		arrayList.add(new ArrayList<String>());
-		arrayList.add(new ArrayList<String>());
-		ArriveAdapter adapter = new ArriveAdapter(arrayList);
+		List<Arrive> l = new ArrayList<Arrive>();
+		Arrive arrive = new Arrive();
+		arrive.setCompany("BELAVIA");
+		arrive.setFlight("Test flight");
+		arrive.setTime("12:00");
+		arrive.setTimeInFact("12:22");
+		arrive.setFlightFrom("Moscow");
+		l.add(arrive);
+		ArriveAdapter adapter = new ArriveAdapter(l);
 		setListAdapter(adapter);
-		// ArriveScheduleLoader scheduleLoader = new ArriveScheduleLoader(this, new ProgressDialogInfo("LOADER",
-		// "Load a schedule", true, false));
-		// scheduleLoader.execute("http://airport.by/timetable/online");
+
+		// ArriveScheduleLoader scheduleLoader = new ArriveScheduleLoader(
+		// this,
+		// new ProgressDialogInfo("LOADER", "Load a schedule", true, false));
+		// scheduleLoader.execute("http://www.airport.by/timetable/online");
 	}
 
 	public void onDeparturesClick(View v) {
@@ -51,13 +66,25 @@ public class ScheduleArriveActivity extends ListActivity {
 		// TODO GO TO Departures
 	}
 
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		Intent intent = new Intent(this, ArriveDetailsActivity.class);
+
+		ArriveAdapter adapter = (ArriveAdapter) getListAdapter();
+		Arrive item = adapter.getItem(position);
+		ArriveDetails details = new ArriveDetails(item);
+		intent.putExtra(ArriveDetails.class.getSimpleName(), details);
+		startActivity(intent);
+
+		super.onListItemClick(l, v, position, id);
+	}
 
 	private class ArriveAdapter extends BaseAdapter {
 
-		private final List<List<String>> arrives;
+		private final List<Arrive> arrives;
 		private final LayoutInflater inflater;
 
-		public ArriveAdapter(List<List<String>> arrives) {
+		public ArriveAdapter(List<Arrive> arrives) {
 			inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			this.arrives = arrives;
 		}
@@ -68,9 +95,9 @@ public class ScheduleArriveActivity extends ListActivity {
 		}
 
 		@Override
-		public Object getItem(int position) {
+		public Arrive getItem(int position) {
 			// TODO Auto-generated method stub
-			return null;
+			return arrives.get(position);
 		}
 
 		@Override
@@ -82,29 +109,40 @@ public class ScheduleArriveActivity extends ListActivity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.list_item_arrive_schedule, null);
+				convertView = inflater.inflate(
+						R.layout.list_item_arrive_schedule, null);
 				holder = new ViewHolder();
-				holder.flight = (TextView) convertView.findViewById(R.id.flight);
+				holder.flight = (TextView) convertView
+						.findViewById(R.id.flight);
+				holder.time = (TextView) convertView
+						.findViewById(R.id.arriveTime);
+				holder.sector = (TextView) convertView
+						.findViewById(R.id.sector);
+				holder.status = (TextView) convertView
+						.findViewById(R.id.status);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			holder.flight.setText("12312321-vs");
+			holder.flight.setText(arrives.get(position).getFlight());
+			holder.time.setText(arrives.get(position).getTime());
+			holder.sector.setText(arrives.get(position).getSector());
+			holder.status.setText(arrives.get(position).getStatus());
 			return convertView;
 		}
 
 	}
 
-	public static class ViewHolder {		
-		public TextView timeInFact;
+	public static class ViewHolder {
 		public TextView flight;
-		public TextView arrive;
+		public TextView time;
 		public TextView sector;
-
+		public TextView status;
 	}
 
-	private static class ArriveScheduleLoader extends
-			ProgressAsyncTask<String, Void, List<List<String>>, ScheduleArriveActivity> {
+	private static class ArriveScheduleLoader
+			extends
+			ProgressAsyncTask<String, Void, List<Arrive>, ScheduleArriveActivity> {
 
 		public ArriveScheduleLoader(ScheduleArriveActivity target,
 				by.airoports.util.ProgressAsyncTask.ProgressDialogInfo info) {
@@ -113,22 +151,30 @@ public class ScheduleArriveActivity extends ListActivity {
 		}
 
 		@Override
-		protected List<List<String>> doInBackground(ScheduleArriveActivity target, String... params) {
-			List<List<String>> arriveSchedule = null;
+		protected List<Arrive> doInBackground(ScheduleArriveActivity target,
+				String... params) {
+			List<Arrive> arriveSchedule = null;
 			try {
 				HtmlHelper arrive = new HtmlHelper(params[0]);
 				arriveSchedule = arrive.getArriveSchedule();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return null;
 			}
 			return arriveSchedule;
 		}
 
 		@Override
-		protected void onPostExecute(ScheduleArriveActivity target, List<List<String>> result) {
-
+		protected void onPostExecute(ScheduleArriveActivity target,
+				List<Arrive> result) {
 			super.onPostExecute(target, result);
+			if (result == null) {
+				Toast.makeText(target, "Не удалось загрузить расписание",
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
+			ArriveAdapter adapter = target.new ArriveAdapter(result);
+			target.setListAdapter(adapter);
 		}
 	}
 }
