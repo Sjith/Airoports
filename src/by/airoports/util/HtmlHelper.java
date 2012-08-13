@@ -90,9 +90,9 @@ public class HtmlHelper {
 			Departure departure = new Departure();
 			Log.i(Constants.LOG_TAG, "BUILDER DEPARTURES:" + builder.toString());
 			StringTokenizer token = new StringTokenizer(builder.toString(), "@");
-			token.nextToken();
+			departure.setCompany(token.nextToken());
 			departure.setTime(token.nextToken());
-			token.nextToken();
+			token.nextToken(); 
 			departure.setFlight(token.nextToken());
 			departure.setDestination(token.nextToken());
 			departure.setSector(token.nextToken());

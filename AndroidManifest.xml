@@ -40,6 +40,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.ArriveDetailsActivity"></activity>
+        <activity android:name=".ui.DepartureDetailsActivity"></activity>
     </application>
 
 </manifest>

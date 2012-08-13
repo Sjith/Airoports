@@ -1,9 +1,20 @@
-package by.airoports.item;
+	package by.airoports.item;
 
 public class Departure {
+	private String company;
 	private String flight;
 	private String time;
 	private String destination;
+	private String sector;
+	private String status;
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
+
+	public String getCompany() {
+		return company;
+	}
 
 	public String getFlight() {
 		return flight;
@@ -45,6 +56,4 @@ public class Departure {
 		this.status = status;
 	}
 
-	private String sector;
-	private String status;
 }
