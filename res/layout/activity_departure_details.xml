@@ -70,7 +70,7 @@
         <TextView           
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Прилёт по расписанию:"
+            android:text="Вылет по расписанию:"
             android:layout_marginRight="10dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -90,7 +90,7 @@
         <TextView          
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Прилёт по факту:"
+            android:text="Вылет по факту:"
             android:layout_marginRight="10dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -110,7 +110,7 @@
         <TextView           
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="До прилёта осталось"
+            android:text="До вылета осталось"
             android:layout_marginRight="10dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -131,8 +131,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Аэропорт вылета"
+            android:text="Направление"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView

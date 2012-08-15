@@ -1,13 +1,10 @@
 package by.airoports.ui;
 
-import by.airoports.R;
-import by.airoports.app.Constants;
-import by.airoports.item.ArriveDetails;
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.widget.TextView;
+import by.airoports.R;
+import by.airoports.item.ArriveDetails;
 
 public class DepartureDetailsActivity extends Activity {
 

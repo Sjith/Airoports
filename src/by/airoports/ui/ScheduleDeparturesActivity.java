@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import by.airoports.R;
 import by.airoports.item.Departure;
+import by.airoports.item.DepartureDetails;
 import by.airoports.util.HtmlHelper;
 import by.airoports.util.ProgressAsyncTask;
 import by.airoports.util.ProgressAsyncTask.ProgressDialogInfo;
@@ -46,6 +48,18 @@ public class ScheduleDeparturesActivity extends ListActivity {
 		finish();
 	}
 
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		Intent intent = new Intent(this, DepartureDetailsActivity.class);
+
+		DeparturesAdapter adapter = (DeparturesAdapter) getListAdapter();
+		Departure item = adapter.getItem(position);
+		DepartureDetails details = new DepartureDetails(item);
+		intent.putExtra(DepartureDetails.class.getSimpleName(), details);
+		startActivity(intent);
+		super.onListItemClick(l, v, position, id);
+	}
+
 	private class DeparturesAdapter extends BaseAdapter {
 
 		private final List<Departure> departures;
@@ -63,7 +77,6 @@ public class ScheduleDeparturesActivity extends ListActivity {
 
 		@Override
 		public Departure getItem(int position) {
-			// TODO Auto-generated method stub
 			return departures.get(position);
 		}
 
