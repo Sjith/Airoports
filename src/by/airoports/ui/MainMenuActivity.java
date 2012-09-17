@@ -20,4 +20,8 @@ public class MainMenuActivity extends Activity {
 	public void goToSchedule(View w){
 		startActivity(ScheduleArriveActivity.buildIntent(this));
 	}
+	
+	public void goToSearch(View w){
+		startActivity(SearchFlightActivity.buildIntent(this));
+	}
 }

@@ -41,6 +41,7 @@
         </activity>
         <activity android:name=".ui.ArriveDetailsActivity"></activity>
         <activity android:name=".ui.DepartureDetailsActivity"></activity>
+        <activity android:name=".ui.SearchFlightActivity"></activity>
     </application>
 
 </manifest>
