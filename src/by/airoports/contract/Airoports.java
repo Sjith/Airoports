@@ -1,10 +1,19 @@
 package by.airoports.contract;
 
+import android.database.Cursor;
+
 public class Airoports {
 	private long id;
 	private String name;
 
-	// TODO create cursor constructor
+
+	public Airoports(Cursor cursor) {
+		super();
+		this.id = cursor.getLong(cursor
+				.getColumnIndexOrThrow(AiroportContract.COLUMNS._ID));
+		this.name = cursor.getString(cursor
+				.getColumnIndexOrThrow(AiroportContract.COLUMNS.NAME));			
+	}
 	public long getId() {
 		return id;
 	}

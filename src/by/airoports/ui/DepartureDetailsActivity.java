@@ -27,9 +27,6 @@ public class DepartureDetailsActivity extends Activity {
 		// TODO calculate time OUt
 		TextView flightFrom = (TextView) findViewById(R.id.flightFrom);
 		flightFrom.setText(parcelableExtra.getFlightFrom());
-		
-		TextView sector = (TextView) findViewById(R.id.sector);
-		sector.setText(parcelableExtra.getSector());
 		TextView status = (TextView) findViewById(R.id.status);
 		status.setText(parcelableExtra.getStatus());
 	}

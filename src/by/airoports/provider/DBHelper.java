@@ -20,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		 execSQL(db, AiroportContract.DATABASE_CREATE);
+		 execSQL(db, AiroportContract.createTable());
 	}
 
 	private void execSQL(final SQLiteDatabase db, final String sql) {

@@ -3,9 +3,6 @@ package by.airoports.provider;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import by.airoports.app.Constants;
-import by.airoports.contract.AiroportContract;
-
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -15,6 +12,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
+import by.airoports.app.Constants;
+import by.airoports.contract.AiroportContract;
 
 public class DBProvider extends ContentProvider {
 
@@ -31,11 +30,13 @@ public class DBProvider extends ContentProvider {
 	public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
 			+ "/airoports";
 
-	private static final UriMatcher sURIMatcher = new UriMatcher(
+	private static final UriMatcher URIMATCHER = new UriMatcher(
 			UriMatcher.NO_MATCH);
 	static {
-		sURIMatcher.addURI(Constants.AUTHORITY, Constants.BASE_PATH, AIROPORTS);
-		sURIMatcher.addURI(Constants.AUTHORITY, Constants.BASE_PATH + "/#", AIROPORTS_ID);
+		URIMATCHER.addURI(Constants.AUTHORITY, AiroportContract.TABLE_AIROPORTS,
+				AIROPORTS);
+		URIMATCHER.addURI(Constants.AUTHORITY,AiroportContract. TABLE_AIROPORTS + "/#",
+				AIROPORTS_ID);
 	}
 
 	@Override
@@ -55,11 +56,12 @@ public class DBProvider extends ContentProvider {
 		checkColumns(projection);
 
 		// Set the table
-		queryBuilder.setTables(AiroportContract.TABLE_AIROPORTS);
+	
 
-		int uriType = sURIMatcher.match(uri);
+		int uriType = URIMATCHER.match(uri);
 		switch (uriType) {
 		case AIROPORTS:
+			queryBuilder.setTables(AiroportContract.TABLE_AIROPORTS);
 			break;
 		case AIROPORTS_ID:
 			// Adding the ID to the original query
@@ -86,7 +88,7 @@ public class DBProvider extends ContentProvider {
 
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
-		int uriType = sURIMatcher.match(uri);
+		int uriType = URIMATCHER.match(uri);
 		SQLiteDatabase sqlDB = database.getWritableDatabase();
 		int rowsDeleted = 0;
 		long id = 0;
@@ -103,7 +105,7 @@ public class DBProvider extends ContentProvider {
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
-		int uriType = sURIMatcher.match(uri);
+		int uriType = URIMATCHER.match(uri);
 		SQLiteDatabase sqlDB = database.getWritableDatabase();
 		int rowsDeleted = 0;
 		switch (uriType) {
@@ -133,7 +135,7 @@ public class DBProvider extends ContentProvider {
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
 
-		int uriType = sURIMatcher.match(uri);
+		int uriType = URIMATCHER.match(uri);
 		SQLiteDatabase sqlDB = database.getWritableDatabase();
 		int rowsUpdated = 0;
 		switch (uriType) {

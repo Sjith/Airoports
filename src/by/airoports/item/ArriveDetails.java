@@ -12,7 +12,6 @@ public class ArriveDetails implements Parcelable {
 	private final String time;
 	private final String timeInFact;
 	private final String flightFrom;
-	private final String sector;
 	private final String status;
 
 	private ArriveDetails(Parcel p) {
@@ -21,7 +20,6 @@ public class ArriveDetails implements Parcelable {
 		time = p.readString();
 		timeInFact = p.readString();
 		flightFrom = p.readString();
-		sector = p.readString();
 		status = p.readString();
 	}
 
@@ -31,7 +29,6 @@ public class ArriveDetails implements Parcelable {
 		time = arrive.getTime();
 		timeInFact = arrive.getTimeInFact();
 		flightFrom = arrive.getFlightFrom();
-		sector = arrive.getSector();
 		status = arrive.getStatus();
 	}
 
@@ -47,7 +44,6 @@ public class ArriveDetails implements Parcelable {
 		dest.writeString(flight);
 		dest.writeString(time);
 		dest.writeString(timeInFact);
-		dest.writeString(sector);
 		dest.writeString(status);
 	}
 
@@ -81,9 +77,6 @@ public class ArriveDetails implements Parcelable {
 		return flightFrom;
 	}
 
-	public String getSector() {
-		return sector;
-	}
 
 	public String getStatus() {
 		return status;

@@ -1,18 +1,38 @@
 package by.airoports.item;
 
+import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import by.airoports.util.HtmlHelper;
+
 public class Arrive {
 	private String company;
 	private String flight;
 	private String time;
 	private String timeInFact;
-	private String flightFrom;
-	private String sector;
+	private String flightFrom;	
 	private String status;
 
+	public Arrive(){
+		
+	}
+	public Arrive(JSONObject object,List<String>keys) {
+		try {
+			setFlight(object.getString(keys.get(0)));
+			setFlightFrom(object.getString(keys.get(1)));
+			setTime((object.getString(keys.get(2))));
+			setStatus(object.getString(keys.get(5)));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public String getFlight() {
 		return flight;
-	}
-
+	}	
+	
 	public void setFlight(String flight) {
 		this.flight = flight;
 	}
@@ -31,14 +51,6 @@ public class Arrive {
 
 	public void setTimeInFact(String timeInFact) {
 		this.timeInFact = timeInFact;
-	}
-
-	public String getSector() {
-		return sector;
-	}
-
-	public void setSector(String sector) {
-		this.sector = sector;
 	}
 
 	public String getStatus() {

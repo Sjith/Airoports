@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONException;
+
 import android.app.ActivityManager;
 import android.app.ListActivity;
 import android.content.Context;
@@ -38,32 +40,11 @@ public class ScheduleArriveActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule_arrive);
-		findViewById(R.id.tab_arrive).setPressed(true);
 
-		List<Arrive> l = new ArrayList<Arrive>();
-		Arrive arrive = new Arrive();
-		arrive.setCompany("BELAVIA");
-		arrive.setFlight("Test flight");
-		arrive.setTime("12:00");
-		arrive.setTimeInFact("12:22");
-		arrive.setFlightFrom("Moscow");
-		l.add(arrive);
-		ArriveAdapter adapter = new ArriveAdapter(l);
-		setListAdapter(adapter);
-
-		// ArriveScheduleLoader scheduleLoader = new ArriveScheduleLoader(
-		// this,
-		// new ProgressDialogInfo("LOADER", "Load a schedule", true, false));
-		// scheduleLoader.execute("http://www.airport.by/timetable/online");
-	}
-
-	public void onDeparturesClick(View v) {
-		startActivity(ScheduleDeparturesActivity.buildIntent(this));
-		finish();
-	}
-
-	public void onArriveClick(View v) {
-		// TODO GO TO Departures
+		ArriveScheduleLoader scheduleLoader = new ArriveScheduleLoader(
+				this,
+				new ProgressDialogInfo("LOADER", "Load a schedule", true, false));
+		scheduleLoader.execute("http://belavia.by/table/?siteid=1&id=5&departure=0&airport=MSQ&date=18.09.2012");
 	}
 
 	@Override
@@ -96,7 +77,6 @@ public class ScheduleArriveActivity extends ListActivity {
 
 		@Override
 		public Arrive getItem(int position) {
-			// TODO Auto-generated method stub
 			return arrives.get(position);
 		}
 
@@ -116,8 +96,8 @@ public class ScheduleArriveActivity extends ListActivity {
 						.findViewById(R.id.flight);
 				holder.time = (TextView) convertView
 						.findViewById(R.id.arriveTime);
-				holder.sector = (TextView) convertView
-						.findViewById(R.id.sector);
+				holder.flightFrom = (TextView) convertView
+						.findViewById(R.id.flightFrom);
 				holder.status = (TextView) convertView
 						.findViewById(R.id.status);
 				convertView.setTag(holder);
@@ -125,16 +105,17 @@ public class ScheduleArriveActivity extends ListActivity {
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.flight.setText(arrives.get(position).getFlight());
-			holder.time.setText(arrives.get(position).getTime());
-			holder.sector.setText(arrives.get(position).getSector());
+			holder.flightFrom.setText(arrives.get(position).getFlightFrom());
+			holder.time.setText(arrives.get(position).getTime());			
 			holder.status.setText(arrives.get(position).getStatus());
 			return convertView;
 		}
 
 	}
 
-	public static class ViewHolder {
+	public static class ViewHolder {		
 		public TextView flight;
+		public TextView flightFrom;
 		public TextView time;
 		public TextView sector;
 		public TextView status;
@@ -155,9 +136,13 @@ public class ScheduleArriveActivity extends ListActivity {
 				String... params) {
 			List<Arrive> arriveSchedule = null;
 			try {
-				HtmlHelper arrive = new HtmlHelper(params[0]);
-				arriveSchedule = arrive.getArriveSchedule();
+				HtmlHelper arrive = new HtmlHelper();
+				arriveSchedule = arrive.saveArrive(params[0]);
 			} catch (IOException e) {
+				e.printStackTrace();
+				return null;
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return null;
 			}
