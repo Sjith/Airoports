@@ -1,20 +1,14 @@
 package by.airoports.ui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONException;
 
-import android.app.ActivityManager;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +25,9 @@ import by.airoports.util.ProgressAsyncTask.ProgressDialogInfo;
 
 public class ScheduleArriveActivity extends ListActivity {
 
-	public static Intent buildIntent(Context context) {
+	public static Intent buildIntent(Context context,String url) {
 		Intent intent = new Intent(context, ScheduleArriveActivity.class);
+		intent.putExtra(SearchFlightActivity.SCHEDULE_URL, url);
 		return intent;
 	}
 
@@ -40,11 +35,11 @@ public class ScheduleArriveActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule_arrive);
-
+		String url = getIntent().getStringExtra(SearchFlightActivity.SCHEDULE_URL);
 		ArriveScheduleLoader scheduleLoader = new ArriveScheduleLoader(
 				this,
 				new ProgressDialogInfo("LOADER", "Load a schedule", true, false));
-		scheduleLoader.execute("http://belavia.by/table/?siteid=1&id=5&departure=0&airport=MSQ&date=18.09.2012");
+		scheduleLoader.execute(url);
 	}
 
 	@Override
@@ -152,10 +147,14 @@ public class ScheduleArriveActivity extends ListActivity {
 		@Override
 		protected void onPostExecute(ScheduleArriveActivity target,
 				List<Arrive> result) {
-			super.onPostExecute(target, result);
+			super.onPostExecute(target, result);			
 			if (result == null) {
 				Toast.makeText(target, "Не удалось загрузить расписание",
 						Toast.LENGTH_SHORT).show();
+				return;
+			}
+			if (result.isEmpty()) {
+				target.getListView().setEmptyView(target.findViewById(R.layout.empty_view));
 				return;
 			}
 			ArriveAdapter adapter = target.new ArriveAdapter(result);

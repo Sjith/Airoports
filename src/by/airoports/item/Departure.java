@@ -1,5 +1,10 @@
 	package by.airoports.item;
 
+import java.util.List;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Departure {
 	private String company;
 	private String flight;
@@ -7,6 +12,13 @@ public class Departure {
 	private String destination;
 	private String sector;
 	private String status;
+
+	public Departure(JSONObject object, List<String> keys) throws JSONException {
+		setFlight(object.getString(keys.get(0)));
+		setDestination(object.getString(keys.get(1)));
+		setTime((object.getString(keys.get(2))));
+		setStatus(object.getString(keys.get(5)));
+	}
 
 	public void setCompany(String company) {
 		this.company = company;

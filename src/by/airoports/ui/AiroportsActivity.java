@@ -49,7 +49,7 @@ public class AiroportsActivity extends ListActivity {
 		Intent data = new Intent();
 		AiroportsAdapter adapter = (AiroportsAdapter) getListAdapter();
 		String item = adapter.getItem(position);
-		data.putExtra(SearchFlightActivity.AIROPORT_NAME,item );	
+		data.putExtra(SearchFlightActivity.AIROPORT_NAME,item);	
 		setResult(SearchFlightActivity.AIROPORT_SELECT, data);
 		finish();
 		super.onListItemClick(l, v, position, id);

@@ -3,10 +3,13 @@ package by.airoports.ui;
 import java.io.IOException;
 import java.util.List;
 
+import org.json.JSONException;
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,48 +18,42 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import by.airoports.R;
+import by.airoports.app.Constants;
 import by.airoports.item.Departure;
-import by.airoports.item.DepartureDetails;
 import by.airoports.util.HtmlHelper;
 import by.airoports.util.ProgressAsyncTask;
 import by.airoports.util.ProgressAsyncTask.ProgressDialogInfo;
 
-// TODO create correct classes
 public class ScheduleDeparturesActivity extends ListActivity {
 
-	public static Intent buildIntent(Context context) {
+	public static Intent buildIntent(Context context, String url) {
 		Intent intent = new Intent(context, ScheduleDeparturesActivity.class);
+		intent.putExtra(SearchFlightActivity.SCHEDULE_URL, url);
 		return intent;
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_schedule_departure);
+		setContentView(R.layout.activity_schedule_departure);		
+		String url = getIntent().getStringExtra(
+				SearchFlightActivity.SCHEDULE_URL);
 		DeparturesScheduleLoader scheduleLoader = new DeparturesScheduleLoader(
-				this, new ProgressDialogInfo("LOADER", "Load a schedule", true,
+				this, new ProgressDialogInfo("LOADER", "Загрузка расписания", true,
 						false));
-		scheduleLoader.execute("http://www.airport.by/timetable/online");
-	}
-
-	public void onDeparturesClick(View v) {
-
-	}
-
-	public void onArriveClick(View v) {
-		startActivity(ScheduleArriveActivity.buildIntent(this));
-		finish();
+		scheduleLoader
+				.execute(url);
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		Intent intent = new Intent(this, DepartureDetailsActivity.class);
-
-		DeparturesAdapter adapter = (DeparturesAdapter) getListAdapter();
-		Departure item = adapter.getItem(position);
-		DepartureDetails details = new DepartureDetails(item);
-		intent.putExtra(DepartureDetails.class.getSimpleName(), details);
-		startActivity(intent);
+		 Intent intent = new Intent(this, DepartureDetailsActivity.class);
+		
+		 DeparturesAdapter adapter = (DeparturesAdapter) getListAdapter();
+		 Departure item = adapter.getItem(position);		 
+		// DepartureDetails details = new DepartureDetails(item);
+		// intent.putExtra(DepartureDetails.class.getSimpleName(), details);
+		// startActivity(intent);
 		super.onListItemClick(l, v, position, id);
 	}
 
@@ -98,8 +95,6 @@ public class ScheduleDeparturesActivity extends ListActivity {
 						.findViewById(R.id.departureTime);
 				holder.destination = (TextView) convertView
 						.findViewById(R.id.destination);
-				holder.sector = (TextView) convertView
-						.findViewById(R.id.sector);
 				holder.status = (TextView) convertView
 						.findViewById(R.id.status);
 
@@ -111,7 +106,6 @@ public class ScheduleDeparturesActivity extends ListActivity {
 			holder.flight.setText(item.getFlight());
 			holder.departureTime.setText(item.getTime());
 			holder.destination.setText(item.getDestination());
-			holder.sector.setText(item.getSector());
 			holder.status.setText(item.getStatus());
 			return convertView;
 		}
@@ -122,7 +116,6 @@ public class ScheduleDeparturesActivity extends ListActivity {
 		public TextView flight;
 		public TextView departureTime;
 		public TextView destination;
-		public TextView sector;
 		public TextView status;
 	}
 
@@ -139,22 +132,35 @@ public class ScheduleDeparturesActivity extends ListActivity {
 		@Override
 		protected List<Departure> doInBackground(
 				ScheduleDeparturesActivity target, String... params) {
-			List<Departure> departureSchedule = null;
+			List<Departure> departureSchedule;
 			try {
-				HtmlHelper departureData = new HtmlHelper(params[0]);
-				departureSchedule = departureData.getDeparturesSchedule();
+				HtmlHelper departureData = new HtmlHelper();
+				departureSchedule = departureData.saveDepature(params[0]);
 			} catch (IOException e) {
+				departureSchedule = null;
+				e.printStackTrace();
+			} catch (JSONException e) {
+				departureSchedule = null;
 				e.printStackTrace();
 			}
 			return departureSchedule;
 		}
-
+		
 		@Override
 		protected void onPostExecute(ScheduleDeparturesActivity target,
 				List<Departure> result) {
 			super.onPostExecute(target, result);
-			DeparturesAdapter adapter = target.new DeparturesAdapter(result);
+			if (result == null) {
+				Toast.makeText(target, "Не удалось загрузить расписание",
+						Toast.LENGTH_SHORT).show();
+				return;
+			}	
+			DeparturesAdapter adapter = target.new DeparturesAdapter(result);			
 			target.setListAdapter(adapter);
+			if(adapter.isEmpty()){
+				adapter.notifyDataSetChanged();
+				Log.v(Constants.TAG, "EMPTY ADAPTER");
+			}
 			Toast.makeText(target, "Загрузка расписания прошла успешно",
 					Toast.LENGTH_SHORT).show();
 		}

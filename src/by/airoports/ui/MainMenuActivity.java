@@ -21,9 +21,6 @@ public class MainMenuActivity extends Activity {
 		inflater.inflate(R.menu.main_menu, menu);
 		return true;
 	}
-	public void goToSchedule(View w){
-		startActivity(ScheduleArriveActivity.buildIntent(this));
-	}
 	
 	public void goToSearch(View w){
 		startActivity(SearchFlightActivity.buildIntent(this));

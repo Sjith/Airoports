@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,9 +19,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import by.airoports.R;
-import static by.airoports.app.Constants.TAG;
 
-import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableList;
 
 public class SearchFlightActivity extends Activity {
@@ -32,11 +29,12 @@ public class SearchFlightActivity extends Activity {
 	private Spinner dateSpinner;
 	private RadioGroup schedule;
 
-	private final static LocalDate date = new LocalDate();
-	public final static int AIROPORT_SELECT = 5;
-	public final static String AIROPORT_NAME = "AIROPORT_NAME";
-	public static List<LocalDate> dates = ImmutableList.of(date.minusDays(2),
+	private final LocalDate date = new LocalDate();
+	private List<LocalDate> dates = ImmutableList.of(date.minusDays(2),
 			date.minusDays(1), date, date.plusDays(1), date.plusDays(2));
+	public static final int AIROPORT_SELECT = 5;
+	public static final String AIROPORT_NAME = "AIROPORT_NAME";
+	public static final String SCHEDULE_URL = "SCHEDULE_URL";
 
 	public static Intent buildIntent(Context context) {
 		return new Intent(context, SearchFlightActivity.class);
@@ -79,12 +77,13 @@ public class SearchFlightActivity extends Activity {
 		airoportSpinner = (Spinner) findViewById(R.id.airoport);
 		dateSpinner = (Spinner) findViewById(R.id.date);
 		schedule = (RadioGroup) findViewById(R.id.schedule);
-	
+
 		SpinDateAdapter dateAdapter = new SpinDateAdapter(this,
 				android.R.layout.simple_spinner_item,
 				dates.toArray(new LocalDate[dates.size()]));
 		dateSpinner.setAdapter(dateAdapter);
-	
+		dateSpinner.setSelection(2);
+
 	}
 
 	private void initListeners() {
@@ -94,25 +93,33 @@ public class SearchFlightActivity extends Activity {
 			public void onClick(View v) {
 				String airoport = (String) airoportSpinner.getSelectedItem();
 				LocalDate date = (LocalDate) dateSpinner.getSelectedItem();
-				int checkedRadioButton = schedule.getCheckedRadioButtonId();				
+				int checkedRadioButton = schedule.getCheckedRadioButtonId();
 				int radioSelected = 0;
 				switch (checkedRadioButton) {
-				case R.id.arrive:					
+				case R.id.arrive:
 					radioSelected = 0;
 					break;
-				case R.id.departure:					
+				case R.id.departure:
 					radioSelected = 1;
 					break;
-				}							
+				default:
+					break;
+				}
 				String formatDate = date.toString("dd.MM.yyyy");
 				int i = airoport.indexOf('(');
 				int j = airoport.indexOf(')');
-				String substring = airoport.substring(i + 1, j);				
+				String substring = airoport.substring(i + 1, j);
 				String url = String
 						.format("http://belavia.by/table/?siteid=1&id=5&departure=%d&airport=%s&date=%s",
 								radioSelected, substring, formatDate);
 				// TODO send to Arrive/Departure activity
-				startActivity(ScheduleArriveActivity.buildIntent(v.getContext()));
+				if (radioSelected == 0) {
+					startActivity(ScheduleArriveActivity.buildIntent(
+							v.getContext(), url));
+				} else {
+					startActivity(ScheduleDeparturesActivity.buildIntent(
+							v.getContext(), url));
+				}
 			}
 		});
 
