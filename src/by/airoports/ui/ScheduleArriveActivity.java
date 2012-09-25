@@ -136,8 +136,7 @@ public class ScheduleArriveActivity extends ListActivity {
 			} catch (IOException e) {
 				e.printStackTrace();
 				return null;
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
+			} catch (JSONException e) {		
 				e.printStackTrace();
 				return null;
 			}

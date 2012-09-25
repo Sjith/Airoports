@@ -7,7 +7,6 @@ import android.util.Log;
 
 public class ArriveDetails implements Parcelable {
 
-	private final String company;
 	private final String flight;
 	private final String time;
 	private final String timeInFact;
@@ -15,7 +14,6 @@ public class ArriveDetails implements Parcelable {
 	private final String status;
 
 	private ArriveDetails(Parcel p) {
-		company = p.readString();
 		flight = p.readString();
 		time = p.readString();
 		timeInFact = p.readString();
@@ -24,7 +22,6 @@ public class ArriveDetails implements Parcelable {
 	}
 
 	public ArriveDetails(Arrive arrive) {
-		company = arrive.getCompany();
 		flight = arrive.getFlight();
 		time = arrive.getTime();
 		timeInFact = arrive.getTimeInFact();
@@ -40,7 +37,6 @@ public class ArriveDetails implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(company);
 		dest.writeString(flight);
 		dest.writeString(time);
 		dest.writeString(timeInFact);
@@ -56,10 +52,6 @@ public class ArriveDetails implements Parcelable {
 			return new ArriveDetails[size];
 		}
 	};
-
-	public String getCompany() {
-		return company;
-	}
 
 	public String getFlight() {
 		return flight;

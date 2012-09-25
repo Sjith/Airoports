@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Connection;
@@ -13,6 +12,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import by.airoports.item.Airoport;
+import by.airoports.item.AiroportItem;
 import by.airoports.item.Arrive;
 import by.airoports.item.Departure;
 
@@ -69,7 +70,7 @@ public class HtmlHelper {
 				String text = elementsByTag.get(i).text();
 				object.put(arriveKeys.get(i), text);
 			}
-			if (object.has(arriveKeys.get(0))) {
+			if (object.has(arriveKeys.get(0)) && object.has(arriveKeys.get(1))) {
 				Arrive arrive = new Arrive(object, arriveKeys);
 				arrives.add(arrive);
 			}
@@ -93,7 +94,7 @@ public class HtmlHelper {
 			JSONObject object = new JSONObject();
 			for (int i = 0; i < elementsByTag.size(); i++) {
 				object.put(departureKeys.get(i), elementsByTag.get(i).text());
-			}
+			}			
 			if (object.has(departureKeys.get(0)) && object.has(departureKeys.get(1))) {
 				Departure departure = new Departure(object, departureKeys);	
 				departures.add(departure);
@@ -131,7 +132,7 @@ public class HtmlHelper {
 	 * 
 	 * @return
 	 */
-	public List<String> saveAiroports(String url) throws IOException {
+	public List<AiroportItem> saveAiroports(String url) throws IOException {
 		Connection connection = Jsoup.connect(url);
 		connection.timeout(60 * 1000);
 		Document doc = connection.get();
@@ -139,9 +140,9 @@ public class HtmlHelper {
 		Element first = body.select("div[class =indboard-prop]").first();
 		Element first2 = first.select("select[name =airport]").first();
 		Elements allElements = first2.getElementById("Items").getAllElements();
-		List<String> list = Lists.newArrayList();
+		List<AiroportItem> list = Lists.newArrayList();
 		for (Element element : allElements) {
-			list.add(element.text());
+			list.add(new Airoport(element.text()));
 		}
 		list.remove(0);// remove unnecessary item
 		return list;

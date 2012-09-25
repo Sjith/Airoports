@@ -3,5 +3,11 @@
 
     <color name="text_tab_selected">#00FFFF</color>
     <color name="text_tab_unselected">#000FFF</color>
-
+    <color name="section_startcolor">#aab7c0</color>
+    <color name="section_endcolor">#b9c3cc</color>
+    <color name="section_startcolor_selected">#c4b4c6</color>
+    <color name="section_endcolor_selected">#4f3e51</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#ff2570ba</color>
+    <color name="grey">#f7f7f7</color>
 </resources>

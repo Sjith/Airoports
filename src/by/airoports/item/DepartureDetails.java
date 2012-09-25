@@ -3,25 +3,22 @@ package by.airoports.item;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class DepartureDetails implements Parcelable {
-	private final String company;
+public class DepartureDetails implements Parcelable {	
 	private final String flight;
 	private final String time;
 	private final String destination;
 	private final String sector;
 	private final String status;
 
-	public DepartureDetails(Departure departure) {
-		company = departure.getCompany();
+	public DepartureDetails(Departure departure) {		
 		flight = departure.getFlight();
 		time = departure.getTime();
 		destination = departure.getDestination();
-		sector = departure.getSector();
+		sector = departure.getType();
 		status = departure.getStatus();
 	}
 
 	private DepartureDetails(Parcel p) {
-		company = p.readString();
 		flight = p.readString();
 		time = p.readString();
 		destination = p.readString();
@@ -36,7 +33,6 @@ public class DepartureDetails implements Parcelable {
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeString(company);
 		dest.writeString(flight);
 		dest.writeString(time);
 		dest.writeString(destination);
@@ -54,9 +50,6 @@ public class DepartureDetails implements Parcelable {
 		}
 	};
 
-	public String getCompany() {
-		return company;
-	}
 
 	public String getFlight() {
 		return flight;

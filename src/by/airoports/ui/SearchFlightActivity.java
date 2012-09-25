@@ -33,8 +33,14 @@ public class SearchFlightActivity extends Activity {
 	private List<LocalDate> dates = ImmutableList.of(date.minusDays(2),
 			date.minusDays(1), date, date.plusDays(1), date.plusDays(2));
 	public static final int AIROPORT_SELECT = 5;
+	
+	/**
+	 * intent extras keys
+	 */
 	public static final String AIROPORT_NAME = "AIROPORT_NAME";
+	public static final String DATE = "DATE";
 	public static final String SCHEDULE_URL = "SCHEDULE_URL";
+	
 
 	public static Intent buildIntent(Context context) {
 		return new Intent(context, SearchFlightActivity.class);
@@ -118,7 +124,7 @@ public class SearchFlightActivity extends Activity {
 							v.getContext(), url));
 				} else {
 					startActivity(ScheduleDeparturesActivity.buildIntent(
-							v.getContext(), url));
+							v.getContext(), url,airoport,formatDate));
 				}
 			}
 		});

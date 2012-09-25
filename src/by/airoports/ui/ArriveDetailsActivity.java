@@ -14,9 +14,6 @@ public class ArriveDetailsActivity extends Activity {
 		setContentView(R.layout.activity_arrive_details);
 		ArriveDetails parcelableExtra = getIntent().getParcelableExtra(
 				ArriveDetails.class.getSimpleName());
-
-		TextView company = (TextView) findViewById(R.id.company);
-		company.setText(parcelableExtra.getCompany());
 		TextView flight = (TextView) findViewById(R.id.flight);
 		flight.setText(parcelableExtra.getFlight());
 		TextView time = (TextView) findViewById(R.id.time);

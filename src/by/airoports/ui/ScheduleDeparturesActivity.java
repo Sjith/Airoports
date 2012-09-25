@@ -17,8 +17,9 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static by.airoports.app.Constants.TAG;
 import by.airoports.R;
-import by.airoports.app.Constants;
 import by.airoports.item.Departure;
 import by.airoports.util.HtmlHelper;
 import by.airoports.util.ProgressAsyncTask;
@@ -26,9 +27,11 @@ import by.airoports.util.ProgressAsyncTask.ProgressDialogInfo;
 
 public class ScheduleDeparturesActivity extends ListActivity {
 
-	public static Intent buildIntent(Context context, String url) {
+	public static Intent buildIntent(Context context, String url,String airoportName,String date) {
 		Intent intent = new Intent(context, ScheduleDeparturesActivity.class);
 		intent.putExtra(SearchFlightActivity.SCHEDULE_URL, url);
+		intent.putExtra(SearchFlightActivity.AIROPORT_NAME, airoportName);
+		intent.putExtra(SearchFlightActivity.DATE, date);
 		return intent;
 	}
 
@@ -36,21 +39,32 @@ public class ScheduleDeparturesActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule_departure);		
-		String url = getIntent().getStringExtra(
+		Intent intent = getIntent();
+		String airoport = intent.getStringExtra(SearchFlightActivity.AIROPORT_NAME);
+		String date = intent.getStringExtra(SearchFlightActivity.DATE);		
+		String url = intent.getStringExtra(
 				SearchFlightActivity.SCHEDULE_URL);
+		
+		LayoutInflater inflater = getLayoutInflater();
+		ViewGroup header = (ViewGroup)inflater.inflate(R.layout.departure_action_bar, getListView(), false);
+		getListView().addHeaderView(header, null, false);
+		TextView airoportName = (TextView)header.findViewById(R.id.airoportName);
+		airoportName.setText(airoport);
+		TextView departureDate = (TextView)header.findViewById(R.id.departureDate);
+		departureDate.setText(date);
+		
 		DeparturesScheduleLoader scheduleLoader = new DeparturesScheduleLoader(
-				this, new ProgressDialogInfo("LOADER", "Загрузка расписания", true,
-						false));
-		scheduleLoader
-				.execute(url);
+				this, new ProgressDialogInfo("LOADER",
+						"Загрузка расписания", true, false));
+		scheduleLoader.execute(url);
 	}
 
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		 Intent intent = new Intent(this, DepartureDetailsActivity.class);
-		
-		 DeparturesAdapter adapter = (DeparturesAdapter) getListAdapter();
-		 Departure item = adapter.getItem(position);		 
+		Intent intent = new Intent(this, DepartureDetailsActivity.class);
+
+		DeparturesAdapter adapter = (DeparturesAdapter) getListAdapter();
+		Departure item = adapter.getItem(position);
 		// DepartureDetails details = new DepartureDetails(item);
 		// intent.putExtra(DepartureDetails.class.getSimpleName(), details);
 		// startActivity(intent);
@@ -105,7 +119,11 @@ public class ScheduleDeparturesActivity extends ListActivity {
 			Departure item = getItem(position);
 			holder.flight.setText(item.getFlight());
 			holder.departureTime.setText(item.getTime());
-			holder.destination.setText(item.getDestination());
+			String destination = item.getDestination();
+			if(destination.contains("(")){
+				destination = destination.substring(0,destination.indexOf("("));
+			}
+			holder.destination.setText(destination);
 			holder.status.setText(item.getStatus());
 			return convertView;
 		}
@@ -145,7 +163,7 @@ public class ScheduleDeparturesActivity extends ListActivity {
 			}
 			return departureSchedule;
 		}
-		
+
 		@Override
 		protected void onPostExecute(ScheduleDeparturesActivity target,
 				List<Departure> result) {
@@ -154,13 +172,9 @@ public class ScheduleDeparturesActivity extends ListActivity {
 				Toast.makeText(target, "Не удалось загрузить расписание",
 						Toast.LENGTH_SHORT).show();
 				return;
-			}	
-			DeparturesAdapter adapter = target.new DeparturesAdapter(result);			
-			target.setListAdapter(adapter);
-			if(adapter.isEmpty()){
-				adapter.notifyDataSetChanged();
-				Log.v(Constants.TAG, "EMPTY ADAPTER");
 			}
+			DeparturesAdapter adapter = target.new DeparturesAdapter(result);
+			target.setListAdapter(adapter);
 			Toast.makeText(target, "Загрузка расписания прошла успешно",
 					Toast.LENGTH_SHORT).show();
 		}

@@ -6,5 +6,6 @@
     <string name="airoports">Airoports</string>
     <string name="arrive">Прилёты</string>
     <string name="departures">Вылеты</string>
+    <string name="schedule_loader">Загрузка расписания</string>
 
 </resources>
