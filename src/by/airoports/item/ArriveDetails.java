@@ -1,9 +1,7 @@
 package by.airoports.item;
 
-import by.airoports.app.Constants;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 public class ArriveDetails implements Parcelable {
 
@@ -11,6 +9,7 @@ public class ArriveDetails implements Parcelable {
 	private final String time;
 	private final String timeInFact;
 	private final String flightFrom;
+	private final String type;
 	private final String status;
 
 	private ArriveDetails(Parcel p) {
@@ -18,6 +17,7 @@ public class ArriveDetails implements Parcelable {
 		time = p.readString();
 		timeInFact = p.readString();
 		flightFrom = p.readString();
+		type = p.readString();
 		status = p.readString();
 	}
 
@@ -26,6 +26,7 @@ public class ArriveDetails implements Parcelable {
 		time = arrive.getTime();
 		timeInFact = arrive.getTimeInFact();
 		flightFrom = arrive.getFlightFrom();
+		type = arrive.getType();
 		status = arrive.getStatus();
 	}
 
@@ -40,6 +41,7 @@ public class ArriveDetails implements Parcelable {
 		dest.writeString(flight);
 		dest.writeString(time);
 		dest.writeString(timeInFact);
+		dest.writeString(type);
 		dest.writeString(status);
 	}
 
@@ -69,6 +71,10 @@ public class ArriveDetails implements Parcelable {
 		return flightFrom;
 	}
 
+
+	public String getType() {
+		return type;
+	}
 
 	public String getStatus() {
 		return status;

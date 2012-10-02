@@ -12,12 +12,14 @@ public class Arrive {
 	private final String timeInFact;
 	private final String flightFrom;
 	private final String status;
+	private final String type;
 
 	public Arrive(JSONObject object, List<String> keys) throws JSONException {
 		flight = object.getString(keys.get(0));
 		flightFrom = object.getString(keys.get(1));
 		time = object.getString(keys.get(2));
 		timeInFact = object.getString(keys.get(3));
+		type = object.getString(keys.get(4));
 		status = object.getString(keys.get(5));
 	}
 
@@ -33,12 +35,16 @@ public class Arrive {
 		return timeInFact;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getType() {
+		return type;
 	}
-
+	
 	public String getFlightFrom() {
 		return flightFrom;
+	}
+
+	public String getStatus() {
+		return status;
 	}
 
 }

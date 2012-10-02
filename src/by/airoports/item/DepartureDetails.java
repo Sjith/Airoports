@@ -3,27 +3,34 @@ package by.airoports.item;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class DepartureDetails implements Parcelable {	
+public class DepartureDetails implements Parcelable {
 	private final String flight;
 	private final String time;
+	private final String timeInFact;
 	private final String destination;
-	private final String sector;
+	private final String type;
 	private final String status;
+	private final String date;
 
-	public DepartureDetails(Departure departure) {		
+	public DepartureDetails(Departure departure, String date) {
+
 		flight = departure.getFlight();
 		time = departure.getTime();
+		timeInFact = departure.getTimeInFact();
 		destination = departure.getDestination();
-		sector = departure.getType();
+		type = departure.getType();
 		status = departure.getStatus();
+		this.date = date;
 	}
 
 	private DepartureDetails(Parcel p) {
 		flight = p.readString();
 		time = p.readString();
+		timeInFact = p.readString();
 		destination = p.readString();
-		sector = p.readString();
+		type = p.readString();
 		status = p.readString();
+		date = p.readString();
 	}
 
 	@Override
@@ -35,9 +42,11 @@ public class DepartureDetails implements Parcelable {
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeString(flight);
 		dest.writeString(time);
+		dest.writeString(timeInFact);
 		dest.writeString(destination);
-		dest.writeString(sector);
+		dest.writeString(type);
 		dest.writeString(status);
+		dest.writeString(date);
 	}
 
 	public static final Parcelable.Creator<DepartureDetails> CREATOR = new Parcelable.Creator<DepartureDetails>() {
@@ -49,7 +58,6 @@ public class DepartureDetails implements Parcelable {
 			return new DepartureDetails[size];
 		}
 	};
-
 
 	public String getFlight() {
 		return flight;
@@ -63,11 +71,19 @@ public class DepartureDetails implements Parcelable {
 		return destination;
 	}
 
-	public String getSector() {
-		return sector;
+	public String getType() {
+		return type;
 	}
 
 	public String getStatus() {
 		return status;
+	}
+
+	public String getTimeInFact() {
+		return timeInFact;
+	}
+
+	public String getDate() {
+		return date;
 	}
 }

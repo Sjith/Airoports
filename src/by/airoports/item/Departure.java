@@ -47,6 +47,5 @@ public class Departure {
 	public String getStatus() {
 		return status;
 	}
-
-
+	
 }
