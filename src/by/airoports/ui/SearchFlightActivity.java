@@ -118,10 +118,9 @@ public class SearchFlightActivity extends Activity {
 				String url = String
 						.format("http://belavia.by/table/?siteid=1&id=5&departure=%d&airport=%s&date=%s",
 								radioSelected, substring, formatDate);
-				// TODO send to Arrive/Departure activity
 				if (radioSelected == 0) {
 					startActivity(ScheduleArriveActivity.buildIntent(
-							v.getContext(), url));
+							v.getContext(), url,airoport,formatDate));
 				} else {
 					startActivity(ScheduleDeparturesActivity.buildIntent(
 							v.getContext(), url,airoport,formatDate));

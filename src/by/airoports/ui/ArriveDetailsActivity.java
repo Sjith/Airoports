@@ -15,17 +15,20 @@ public class ArriveDetailsActivity extends Activity {
 		ArriveDetails parcelableExtra = getIntent().getParcelableExtra(
 				ArriveDetails.class.getSimpleName());
 		TextView flight = (TextView) findViewById(R.id.flight);
-		flight.setText(parcelableExtra.getFlight());
+		flight.setText(parcelableExtra.getFlight());		
+		TextView status = (TextView) findViewById(R.id.status);
+		status.setText(parcelableExtra.getStatus());
 		TextView time = (TextView) findViewById(R.id.time);
 		time.setText(parcelableExtra.getTime());
 		TextView timeInFact = (TextView) findViewById(R.id.timeInFact);
 		timeInFact.setText(parcelableExtra.getTimeInFact());
+				
 		TextView timeOut = (TextView) findViewById(R.id.timeOut);
 		// TODO calculate time OUt
 		TextView flightFrom = (TextView) findViewById(R.id.flightFrom);
 		flightFrom.setText(parcelableExtra.getFlightFrom());
 				
-		TextView status = (TextView) findViewById(R.id.status);
-		status.setText(parcelableExtra.getStatus());
+		TextView type = (TextView) findViewById(R.id.type);
+		type.setText(parcelableExtra.getType());
 	}
 }

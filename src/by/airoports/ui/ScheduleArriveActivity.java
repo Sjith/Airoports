@@ -25,9 +25,12 @@ import by.airoports.util.ProgressAsyncTask.ProgressDialogInfo;
 
 public class ScheduleArriveActivity extends ListActivity {
 
-	public static Intent buildIntent(Context context,String url) {
+	public static Intent buildIntent(Context context, String url,
+			String airoportName, String date) {
 		Intent intent = new Intent(context, ScheduleArriveActivity.class);
 		intent.putExtra(SearchFlightActivity.SCHEDULE_URL, url);
+		intent.putExtra(SearchFlightActivity.AIROPORT_NAME, airoportName);
+		intent.putExtra(SearchFlightActivity.DATE, date);
 		return intent;
 	}
 
@@ -35,7 +38,22 @@ public class ScheduleArriveActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_schedule_arrive);
-		String url = getIntent().getStringExtra(SearchFlightActivity.SCHEDULE_URL);
+		Intent intent = getIntent();
+		String url = intent.getStringExtra(SearchFlightActivity.SCHEDULE_URL);
+		String airoport = intent
+				.getStringExtra(SearchFlightActivity.AIROPORT_NAME);
+		String date = intent.getStringExtra(SearchFlightActivity.DATE);		
+
+		LayoutInflater inflater = getLayoutInflater();
+		ViewGroup header = (ViewGroup) inflater.inflate(
+				R.layout.arrive_action_bar, getListView(), false);
+		getListView().addHeaderView(header, null, false);		
+		TextView airoportName = (TextView) header
+				.findViewById(R.id.airoportName);
+		airoportName.setText(airoport);
+		TextView departureDate = (TextView) header
+				.findViewById(R.id.arriveDate);
+		departureDate.setText(date);
 		ArriveScheduleLoader scheduleLoader = new ArriveScheduleLoader(
 				this,
 				new ProgressDialogInfo("LOADER", "Load a schedule", true, false));
@@ -102,7 +120,7 @@ public class ScheduleArriveActivity extends ListActivity {
 			holder.flight.setText(arrives.get(position).getFlight());
 			holder.flightFrom.setText(arrives.get(position).getFlightFrom());
 			holder.time.setText(arrives.get(position).getTime());			
-			holder.status.setText(arrives.get(position).getStatus());
+			holder.status.setText(arrives.get(position).getType());
 			return convertView;
 		}
 
