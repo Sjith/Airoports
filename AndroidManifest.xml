@@ -43,6 +43,10 @@
         <activity android:name=".ui.ArriveDetailsActivity"></activity>
         <activity android:name=".ui.DepartureDetailsActivity"></activity>
         <activity android:name=".ui.SearchFlightActivity"></activity>
+        <activity android:name=".ui.SearchTimeTableActivity"></activity>
+        <activity android:name=".ui.AiroportsDataActivity"></activity>
+        <activity android:name=".ui.TimeTableActivity"></activity>
+        <activity android:name=".ui.SearchTimeTableActivity"></activity>
     </application>
 
 </manifest>

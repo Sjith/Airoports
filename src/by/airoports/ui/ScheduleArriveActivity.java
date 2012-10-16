@@ -120,7 +120,7 @@ public class ScheduleArriveActivity extends ListActivity {
 			holder.flight.setText(arrives.get(position).getFlight());
 			holder.flightFrom.setText(arrives.get(position).getFlightFrom());
 			holder.time.setText(arrives.get(position).getTime());			
-			holder.status.setText(arrives.get(position).getType());
+			holder.status.setText(arrives.get(position).getStatus());
 			return convertView;
 		}
 

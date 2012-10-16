@@ -9,10 +9,10 @@
         android:id="@+id/ma_main_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"        
+        android:layout_gravity="center"
         android:contentDescription="main logo"
         android:src="@drawable/airoport_logo" />
-
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,14 +22,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-               android:layout_marginRight="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="vertical" >
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/schedule"
-             android:layout_marginLeft="10dp"
                 android:onClick="goToTimeTable" />
 
             <TextView
@@ -48,15 +48,13 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/airtickets"
-               />
+                android:background="@drawable/airtickets" />
 
-            <TextView                
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Билеты"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
         </LinearLayout>
     </LinearLayout>
 
@@ -79,7 +77,7 @@
                 android:background="@drawable/schedule"
                 android:onClick="goToSearch" />
 
-            <TextView                
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Табло Прилёта/Вылета"

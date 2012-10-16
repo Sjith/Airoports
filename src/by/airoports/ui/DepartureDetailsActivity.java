@@ -1,5 +1,6 @@
 package by.airoports.ui;
 
+import org.joda.time.Days;
 import org.joda.time.Hours;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -7,12 +8,8 @@ import org.joda.time.format.DateTimeFormatter;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
-
-import static by.airoports.app.Constants.TAG;
 import by.airoports.R;
-import by.airoports.item.ArriveDetails;
 import by.airoports.item.DepartureDetails;
 
 public class DepartureDetailsActivity extends Activity {
@@ -29,18 +26,28 @@ public class DepartureDetailsActivity extends Activity {
 		TextView time = (TextView) findViewById(R.id.time);
 		time.setText(parcelableExtra.getTime());
 		TextView timeInFact = (TextView) findViewById(R.id.timeInFact);
-		timeInFact.setText(parcelableExtra.getTimeInFact());		
-		
+		timeInFact.setText(parcelableExtra.getTimeInFact());
+
 		// TODO parse time
 		LocalDate now = new LocalDate();
-		DateTimeFormatter parser1 =
-			    DateTimeFormat.forPattern("dd.MM.yyyy");	
-		LocalDate date = new LocalDate(LocalDate.parse(parcelableExtra.getDate(),parser1));		
-		Hours hoursBetween = Hours.hoursBetween(now, date);		
-		TextView timeOut = (TextView) findViewById(R.id.timeOut);		
-		if(hoursBetween.getHours() == 0){
-			// calculate hours from time
-				timeOut.setText(date.toString("dd.MM.yyyy"));
+		DateTimeFormatter parser1 = DateTimeFormat.forPattern("dd.MM.yyyy");
+		LocalDate date = new LocalDate(LocalDate.parse(
+				parcelableExtra.getDate(), parser1));
+		Days daysBetween = Days.daysBetween(now, date);
+		TextView timeOut = (TextView) findViewById(R.id.timeOut);
+		if (daysBetween.getDays() == 0) {
+			String format = String.format("%s часов", 5);
+			timeOut.setText(format);
+		} else {
+			String format = "";
+			int days = daysBetween.getDays();
+			if (days == 1) {
+				format = String.format("%s День  %s часов",
+						daysBetween.getDays(), 2);
+			}
+			format = String
+					.format("%s Дня  %s часов", daysBetween.getDays(), 2);
+			timeOut.setText(format);
 		}
 		// TODO calculate time OUt
 		TextView flightFrom = (TextView) findViewById(R.id.destination);

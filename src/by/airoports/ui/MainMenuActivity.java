@@ -27,6 +27,6 @@ public class MainMenuActivity extends Activity {
 	}
 	
 	public void goToTimeTable(View w){
-		startActivity(AiroportsTimeTable.buildIntent(this));
+		startActivity(SearchTimeTableActivity.buildIntent(this));
 	}
 }
