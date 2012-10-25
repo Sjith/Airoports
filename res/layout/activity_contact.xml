@@ -4,11 +4,14 @@
     android:layout_height="match_parent"
     android:layout_marginTop="50dp"
     android:orientation="vertical" >
-
-    <include
+
+    <ImageView
+        android:id="@+id/ma_main_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        layout="@layout/main_action_bar" />
+        android:layout_gravity="center"
+        android:contentDescription="main logo"
+        android:src="@drawable/airoport_logo" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,9 +33,11 @@
                 android:onClick="goToTimeTable" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Расписание"
+                android:gravity="center"
+                android:lines="2"
+                android:text="Перевозка Грузов"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
@@ -46,13 +51,16 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/airtickets" />
-
+                android:background="@drawable/schedule" />
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Билеты"
+                android:gravity="center"
+                android:lines="2"
+                android:text="Перевозка животных"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
         </LinearLayout>
     </LinearLayout>
 
@@ -79,8 +87,8 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:lines="3"
-                android:text="Табло Прилёта Вылета"
+                android:lines="2"
+                android:text="Рекламные услуги"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
 
@@ -95,13 +103,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/schedule"
-                android:onClick="goToServices" />
+                android:onClick="goToSearch" />
 
             <TextView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Услуги"
+                android:text="Веб-сервисы"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
         </LinearLayout>
     </LinearLayout>

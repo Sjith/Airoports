@@ -4,20 +4,47 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ExpandableListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" >
-    </ExpandableListView>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4" >
+        android:layout_height="60dp"
+        android:gravity="center|left" >
+
+        <ImageView
+            android:id="@+id/ma_main_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="main logo"
+            android:src="@drawable/airoport_logo" />
 
         <LinearLayout
-            android:id="@+id/tab_arrive"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/airoportNameTo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minsk"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView                
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Minsk"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:id="@+id/tab_To"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -25,7 +52,8 @@
             android:gravity="center_horizontal|bottom"
             android:minHeight="?android:attr/listPreferredItemHeight"
             android:orientation="vertical"
-            android:padding="4dp" >
+            android:padding="4dp"
+            android:onClick="goTo" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,7 +65,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/tab_departures"
+            android:id="@+id/tab_From"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -45,7 +73,8 @@
             android:gravity="center_horizontal|bottom"
             android:minHeight="?android:attr/listPreferredItemHeight"
             android:orientation="vertical"
-            android:padding="4dp" >
+            android:padding="4dp" 
+            android:onClick="goBack">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -59,8 +88,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4"
+        android:layout_height="wrap_content"
         android:gravity="center" >
 
         <TextView
@@ -119,13 +147,5 @@
             android:text="ВС"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
-
-    <ExpandableListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" >
-    </ExpandableListView>
->>>>>>> refs/remotes/origin/master
 
 </LinearLayout>

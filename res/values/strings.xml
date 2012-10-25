@@ -5,7 +5,9 @@
     <string name="app_name">Airoports</string>
     <string name="airoports">Airoports</string>
     <string name="arrive">Прилёты</string>
-    <string name="departures">Вылеты</string>
-    <string name="schedule_loader">Загрузка расписания</string>
+    <string name="departures">Вылеты</string>    
+    <string name="load_schedule">Load an schedule</string>
+    <string name="load_an_airoports_list">Load an airoports list</string>
+    <string name="error_search_timetable">Не заданы обязательные параметры: город вылета и город прилета</string>
 
 </resources>
