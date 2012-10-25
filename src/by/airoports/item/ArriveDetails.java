@@ -8,6 +8,7 @@ public class ArriveDetails implements Parcelable {
 	private final String flight;
 	private final String time;
 	private final String timeInFact;
+	private final String date;
 	private final String flightFrom;
 	private final String type;
 	private final String status;
@@ -16,18 +17,20 @@ public class ArriveDetails implements Parcelable {
 		flight = p.readString();
 		time = p.readString();
 		timeInFact = p.readString();
+		date = p.readString();
 		flightFrom = p.readString();
 		type = p.readString();
 		status = p.readString();
 	}
 
-	public ArriveDetails(Arrive arrive) {
+	public ArriveDetails(Arrive arrive, String date) {
 		flight = arrive.getFlight();
 		time = arrive.getTime();
 		timeInFact = arrive.getTimeInFact();
+		this.date = date;
 		flightFrom = arrive.getFlightFrom();
 		type = arrive.getType();
-		status = arrive.getStatus();
+		status = arrive.getStatus();		
 	}
 
 	@Override
@@ -41,6 +44,7 @@ public class ArriveDetails implements Parcelable {
 		dest.writeString(flight);
 		dest.writeString(time);
 		dest.writeString(timeInFact);
+		dest.writeString(date);
 		dest.writeString(type);
 		dest.writeString(status);
 	}
@@ -78,6 +82,10 @@ public class ArriveDetails implements Parcelable {
 
 	public String getStatus() {
 		return status;
+	}
+
+	public String getDate() {
+		return date;
 	}
 
 }

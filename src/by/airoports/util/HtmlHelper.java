@@ -55,7 +55,7 @@ public class HtmlHelper {
 	public List<Arrive> saveArrive(String url) throws IOException,
 			JSONException {
 		Connection connection = Jsoup.connect(url);
-		connection.timeout(60 * 1000);
+		connection.timeout(20 * 1000);
 		Document doc = connection.get();
 		Element body = doc.select("body").first();		
 		Element attr = body.select("table[class =tbl]").first();
@@ -81,7 +81,7 @@ public class HtmlHelper {
 	public List<Departure> saveDepature(String url)
 			throws IOException, JSONException {		
 		Connection connection = Jsoup.connect(url);
-		connection.timeout(60 * 1000);
+		connection.timeout(20 * 1000);
 		Document doc = connection.get();
 		Element body = doc.select("body").first();		
 		Element attr = body.select("table[class =tbl]").first();
@@ -108,7 +108,7 @@ public class HtmlHelper {
 	 */
 	public void saveAiroportsShortcuts(String url) throws IOException {
 		Connection connection = Jsoup.connect("http://belavia.by/table/");
-		connection.timeout(60 * 1000);
+		connection.timeout(20 * 1000);
 		Document doc = connection.get();
 		Element body = doc.select("body").first();
 		Element first = body.select("div[class =indboard-prop]").first();
@@ -134,7 +134,7 @@ public class HtmlHelper {
 	 */
 	public List<AiroportItem> saveAiroports(String url) throws IOException {
 		Connection connection = Jsoup.connect(url);
-		connection.timeout(60 * 1000);
+		connection.timeout(20 * 1000);
 		Document doc = connection.get();
 		Element body = doc.select("body").first();
 		Element first = body.select("div[class =indboard-prop]").first();
@@ -145,6 +145,104 @@ public class HtmlHelper {
 			list.add(new Airoport(element.text()));
 		}
 		list.remove(0);// remove unnecessary item
+		return list;
+	}
+
+	public List<String[]> saveWeekDescriptionTo() throws IOException {
+		Element body = doc.select("body").first();
+		Element attr = body.select("table[class =tbl]").first();
+		Elements elements = attr.getElementsByTag("tr");
+		List<String[]> list = Lists.newArrayList();
+	
+		for (int i = 0; i < elements.size(); i++) {
+			Elements elementsByTag = elements.get(i).getElementsByTag("td");
+			int j = 0;
+			String[] arr = new String[6];
+			for (Element element : elementsByTag) {
+				if (element.hasText()) {
+					String description = element.text();
+					if (description.length() > 1) {
+						arr[j] = description;
+						j++;
+					}
+				}
+			}
+			if (arr[0] != null) {
+				list.add(arr);
+			}
+		}
+		return list;
+	}
+	
+	public List<String[]> saveWeekDescriptionFrom() throws IOException {
+		Element body = doc.select("body").first();
+		Element attr = body.select("table[class =tbl]").last();
+		Elements elements = attr.getElementsByTag("tr");
+		List<String[]> list = Lists.newArrayList();
+	
+		for (int i = 0; i < elements.size(); i++) {
+			Elements elementsByTag = elements.get(i).getElementsByTag("td");
+			int j = 0;
+			String[] arr = new String[6];
+			for (Element element : elementsByTag) {
+				if (element.hasText()) {
+					String description = element.text();
+					if (description.length() > 1) {
+						arr[j] = description;
+						j++;
+					}
+				}
+			}
+			if (arr[0] != null) {
+				list.add(arr);
+			}
+		}
+		return list;
+	}
+
+	public List<boolean[]> saveWeekScheduleTo() throws IOException {
+		Element body = doc.select("body").first();
+		int weekday = 0;
+		Element attr = body.select("table[class =tbl]").first();
+		Elements elements = attr.getElementsByTag("tr");
+		List<boolean[]> list = Lists.newArrayList();
+		for (int i = 0; i < elements.size(); i++) {
+			Elements elementsByTag = elements.get(i).getElementsByTag("td");
+			boolean[] arr = new boolean[7];
+			for (Element element : elementsByTag) {
+				Elements elementsByTag2 = element.getElementsByTag("img");
+				arr[weekday] = !elementsByTag2.isEmpty();
+				weekday++;
+				if (weekday == 7) {
+					weekday = 0;
+					list.add(arr);
+					break;
+				}
+			}
+		}
+		return list;
+	}
+	
+	public List<boolean[]> saveWeekScheduleFrom() throws IOException {
+		Element body = doc.select("body").first();
+		int weekday = 0;
+		Element attr = body.select("table[class =tbl]").last();
+		Elements elements = attr.getElementsByTag("tr");
+		List<boolean[]> list = Lists.newArrayList();
+		for (int i = 0; i < elements.size(); i++) {
+			Elements elementsByTag = elements.get(i).getElementsByTag("td");
+			boolean[] arr = new boolean[7];
+			for (Element element : elementsByTag) {
+				Elements elementsByTag2 = element.getElementsByTag("img");
+				arr[weekday] = !elementsByTag2.isEmpty();
+				weekday++;
+				if (weekday == 7) {
+					weekday = 0;
+					list.add(arr);
+					break;
+				}
+			}
+		}
 		return list;
 	}
 }

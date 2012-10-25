@@ -11,6 +11,12 @@ public final class AiroportsTableUtils {
 	static {
 		airoports.put("Амстердам", "AMS");
 		airoports.put("Астана", "TSE");
+		airoports.put("Ашхабад", "ASB");
+		airoports.put("Баку", "GYD");
+		airoports.put("Барселона", "BCN");
+		airoports.put("Батуми", "BUS");
+		airoports.put("Бейрут", "BEY");
+		airoports.put("Берлин", "BER");
 	}
 
 	private AiroportsTableUtils() {

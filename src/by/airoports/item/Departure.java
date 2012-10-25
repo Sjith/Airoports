@@ -48,4 +48,9 @@ public class Departure {
 		return status;
 	}
 	
+	@Override
+	public String toString() {	
+		return flight;
+	}
+	
 }
