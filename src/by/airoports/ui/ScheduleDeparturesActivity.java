@@ -62,6 +62,7 @@ public class ScheduleDeparturesActivity extends ListActivity {
 				this, new ProgressDialogInfo("LOADER", "Загрузка расписания",
 						true, false));
 
+		Log.v(TAG, "URL" + url);
 		scheduleLoader.execute(url);
 	}
 
@@ -97,6 +98,7 @@ public class ScheduleDeparturesActivity extends ListActivity {
 			try {
 				HtmlHelper departureData = new HtmlHelper();
 				departureSchedule = departureData.saveDepature(params[0]);
+				Log.v(TAG, "DEPARTURES:" +departureSchedule);
 			} catch (IOException e) {
 				departureSchedule = null;
 				e.printStackTrace();
@@ -142,7 +144,7 @@ public class ScheduleDeparturesActivity extends ListActivity {
 
 		@Override
 		public int getCount() {
-			return departures.size() - 1;
+			return departures.size();
 		}
 
 		@Override
