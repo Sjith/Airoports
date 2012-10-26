@@ -95,7 +95,7 @@
             android:id="@+id/TextView01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="7dp"
             android:text="ПН"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -103,7 +103,7 @@
             android:id="@+id/TextView02"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="7dp"
             android:text="ВТ"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -111,7 +111,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="7dp"
             android:text="СР"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -119,7 +119,7 @@
             android:id="@+id/TextView03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="7dp"
             android:text="ЧТ"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -127,7 +127,7 @@
             android:id="@+id/TextView04"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="7dp"
             android:text="ПТ"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -135,7 +135,7 @@
             android:id="@+id/TextView05"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="7dp"
             android:text="СБ"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -143,7 +143,7 @@
             android:id="@+id/TextView06"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="7dp"
             android:text="ВС"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>

@@ -66,7 +66,8 @@ public class ScheduleArriveActivity extends ListActivity {
 
 		ArriveAdapter adapter = (ArriveAdapter) getListAdapter();
 		Arrive item = adapter.getItem(position);
-		ArriveDetails details = new ArriveDetails(item);
+		String date = getIntent().getStringExtra(SearchFlightActivity.DATE);
+		ArriveDetails details = new ArriveDetails(item,date);
 		intent.putExtra(ArriveDetails.class.getSimpleName(), details);
 		startActivity(intent);
 

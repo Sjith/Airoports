@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import by.airoports.R;
+import by.airoports.app.Constants;
 
 import com.google.common.collect.ImmutableList;
 
@@ -33,14 +35,13 @@ public class SearchFlightActivity extends Activity {
 	private List<LocalDate> dates = ImmutableList.of(date.minusDays(2),
 			date.minusDays(1), date, date.plusDays(1), date.plusDays(2));
 	public static final int AIROPORT_SELECT = 5;
-	
+
 	/**
 	 * intent extras keys
 	 */
 	public static final String AIROPORT_NAME = "AIROPORT_NAME";
 	public static final String DATE = "DATE";
 	public static final String SCHEDULE_URL = "SCHEDULE_URL";
-	
 
 	public static Intent buildIntent(Context context) {
 		return new Intent(context, SearchFlightActivity.class);
@@ -115,15 +116,21 @@ public class SearchFlightActivity extends Activity {
 				int i = airoport.indexOf('(');
 				int j = airoport.indexOf(')');
 				String substring = airoport.substring(i + 1, j);
+				String substring2 = airoport.substring(j + 1, airoport.length());				
+				if (substring2.indexOf("(") != -1) { // validate second braces
+					i = substring2.indexOf('(');
+					j = substring2.indexOf(')');
+					substring = substring2.substring(i + 1, j);
+				}
 				String url = String
 						.format("http://belavia.by/table/?siteid=1&id=5&departure=%d&airport=%s&date=%s",
 								radioSelected, substring, formatDate);
 				if (radioSelected == 0) {
 					startActivity(ScheduleArriveActivity.buildIntent(
-							v.getContext(), url,airoport,formatDate));
+							v.getContext(), url, airoport, formatDate));
 				} else {
 					startActivity(ScheduleDeparturesActivity.buildIntent(
-							v.getContext(), url,airoport,formatDate));
+							v.getContext(), url, airoport, formatDate));
 				}
 			}
 		});

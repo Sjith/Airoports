@@ -134,7 +134,7 @@ public class TimeTableTwoWaysActivity extends ExpandableListActivity {
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.WRAP_CONTENT,
 					LinearLayout.LayoutParams.WRAP_CONTENT);
-			lp.setMargins(15, 0, 10, 0); // TODO calculate correct image size fo
+			lp.setMargins(10, 0, 20, 0); // TODO calculate correct image size fo
 			// TODO set empty image
 			ImageView image = new ImageView(TimeTableTwoWaysActivity.this);
 			image.setLayoutParams(lp);
@@ -154,6 +154,7 @@ public class TimeTableTwoWaysActivity extends ExpandableListActivity {
 			setImageResource(flights[4], image5);
 
 			ImageView image6 = new ImageView(TimeTableTwoWaysActivity.this);
+			image6.setLayoutParams(lp);
 			setImageResource(flights[5], image6);
 
 			ImageView image7 = new ImageView(TimeTableTwoWaysActivity.this);
@@ -161,7 +162,7 @@ public class TimeTableTwoWaysActivity extends ExpandableListActivity {
 			setImageResource(flights[6], image7);
 			// Center the text vertically
 			// Set the text starting position
-			image.setPadding(70, 0, 0, 0);
+			image.setPadding(55, 0, 0, 0);
 			LinearLayout layout = new LinearLayout(TimeTableTwoWaysActivity.this);
 			layout.setLayoutParams(new ListView.LayoutParams(
 					ListView.LayoutParams.MATCH_PARENT, 50));

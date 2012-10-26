@@ -63,13 +63,14 @@ public class AiroportsActivity extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_airoports);		
-			
-		TextView searchText = (TextView)findViewById(R.id.search);
+		setContentView(R.layout.activity_airoports);
+
+		TextView searchText = (TextView) findViewById(R.id.search);
 		searchText.addTextChangedListener(filterTextWatcher);
-		AiroportsLoader airoportsLoader = new AiroportsLoader(this,
-				new ProgressDialogInfo("LOADER", "Load an airoports list",
-						true, false));
+		AiroportsLoader airoportsLoader = new AiroportsLoader(
+				this,
+				new ProgressDialogInfo("LOADER",
+						getString(R.string.load_an_airoports_list), true, false));
 		airoportsLoader.execute("http://belavia.by/table/");
 	}
 

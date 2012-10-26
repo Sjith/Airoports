@@ -99,16 +99,33 @@ public class TimeTableOneWayActivity extends ExpandableListActivity {
 
 		public ExpandableListAdapter(final List<boolean[]> weekSchedule,
 				final List<String[]> description) {
-			// List<boolean[]> list = Lists.newArrayList();
-			// List<String[]> list2 = Lists.newArrayList();
-			// boolean[] t = new boolean[7];
-			// t[0] = true;
-			// t[1] = true;
-			// t[2] = false;
-			// t[3] = false;
-			// t[4] = true;
-			// t[5] = false;
-			// list.add(t);
+			 List<boolean[]> list = Lists.newArrayList();			 
+//			 boolean[] t = new boolean[7];
+//			 t[0] = true;
+//			 t[1] = true;
+//			 t[2] = true;
+//			 t[3] = true;
+//			 t[4] = true;
+//			 t[5] = true;
+//			 
+//			 boolean[] t2 = new boolean[7];
+//			 t2[0] = true;
+//			 t2[1] = false;
+//			 t2[2] = true;
+//			 t2[3] = false;
+//			 t2[4] = true;
+//			 t2[5] = false;
+//			 
+//			 boolean[] t3 = new boolean[7];
+//			 t3[0] = false;
+//			 t3[1] = false;
+//			 t3[2] = false;
+//			 t3[3] = false;
+//			 t3[4] = true;
+//			 t3[5] = true;
+//			 list.add(t);
+//			 list.add(t2);
+//			 list.add(t3);
 
 			this.weekSchedule = weekSchedule;
 			weekDescription = description;
@@ -152,7 +169,7 @@ public class TimeTableOneWayActivity extends ExpandableListActivity {
 			LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 					LinearLayout.LayoutParams.WRAP_CONTENT,
 					LinearLayout.LayoutParams.WRAP_CONTENT);
-			lp.setMargins(15, 0, 10, 0); // TODO calculate correct image size fo
+			lp.setMargins(10, 0, 20, 0); // TODO calculate correct image size fo
 			// TODO set empty image
 			ImageView image = new ImageView(TimeTableOneWayActivity.this);
 			image.setLayoutParams(lp);
@@ -172,6 +189,7 @@ public class TimeTableOneWayActivity extends ExpandableListActivity {
 			setImageResource(flights[4], image5);
 
 			ImageView image6 = new ImageView(TimeTableOneWayActivity.this);
+			image6.setLayoutParams(lp);
 			setImageResource(flights[5], image6);
 
 			ImageView image7 = new ImageView(TimeTableOneWayActivity.this);
@@ -179,7 +197,7 @@ public class TimeTableOneWayActivity extends ExpandableListActivity {
 			setImageResource(flights[6], image7);
 			// Center the text vertically
 			// Set the text starting position
-			image.setPadding(70, 0, 0, 0);
+			image.setPadding(55, 0, 0, 0);
 			LinearLayout layout = new LinearLayout(TimeTableOneWayActivity.this);
 			layout.setLayoutParams(new ListView.LayoutParams(
 					ListView.LayoutParams.MATCH_PARENT, 50));
@@ -199,7 +217,7 @@ public class TimeTableOneWayActivity extends ExpandableListActivity {
 			if (flight) {
 				image.setImageResource(R.drawable.airplane);
 			} else {
-				image.setMinimumWidth(25);
+				image.setImageResource(R.drawable.cancel);
 			}
 		}
 
