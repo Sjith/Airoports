@@ -31,6 +31,7 @@ public class MainMenuActivity extends Activity {
 		day = day.replace(day.charAt(0), Character.toUpperCase(day.charAt(0)));
 		text.setText(now.toString("dd.MMMM.yyyy", new Locale("RU", "ru")) + " "
 				+ day);
+		
 	}
 
 	@Override
