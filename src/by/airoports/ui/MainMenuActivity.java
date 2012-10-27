@@ -33,12 +33,25 @@ public class MainMenuActivity extends Activity {
 				+ day);
 		
 	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main_menu, menu);
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.about:
+			startActivity(AboutCompanyActivity.buildIntent(this));
+			return true;
+		case R.id.settings:
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public void goToSearch(View w) {
